@@ -7,9 +7,6 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 
 @NgModule({
   declarations: [CategoryListComponent, CategoryFormComponent],
-  imports: [
-    CommonModule,
-    CategoriesRoutingModule
-  ]
+  imports: [CommonModule, CategoriesRoutingModule]
 })
 export class CategoriesModule { }
