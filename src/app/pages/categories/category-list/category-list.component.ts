@@ -16,7 +16,7 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
 
     this.categoryService
-            .getAll()
+            .findAll()
             .subscribe(categories => this.categories = categories, error => alert('erro ao retornar lista'))
   }
 
