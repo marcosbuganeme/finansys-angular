@@ -17,11 +17,11 @@ import { CategoriesModule } from '../categories.module';
 export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   pageTitle: string
-  currentAction: string // rota
+  currentActionRoute: string
   categoryForm: FormGroup
-  category: Category = new Category() // objeto a ser trabalhado
-  submittingForm: boolean = false // desabilitar o botão de enviar
-  serverErrorMessages: string[] = null //mensagens retornadas do servidor
+  disableButton: boolean = false
+  errorMessages: string[] = null
+  category: Category = new Category()
 
   constructor(private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
@@ -30,7 +30,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
 
-    this.setCurrentAction()
+    this.setCurrentActionRoute()
     this.buildCategoryForm()
     this.loadCategory()
   }
@@ -39,13 +39,27 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.setPageTitle()
   }
 
-  private setCurrentAction() {
+  submitForm() {
+
+    this.disableButton = true
+
+    if (this.currentActionRoute == 'new') {
+
+      this.createCategory()
+
+    } else {
+
+      this.updateCategory()
+    }
+  }
+
+  private setCurrentActionRoute() {
 
     if (this.activatedRoute.snapshot.url[0].path == 'new')
-      this.currentAction = 'new'
+      this.currentActionRoute = 'new'
 
     else
-      this.currentAction = 'edit'
+      this.currentActionRoute = 'edit'
   }
 
   private buildCategoryForm() {
@@ -59,7 +73,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   private loadCategory() {
 
-    if (this.currentAction == 'edit') {
+    if (this.currentActionRoute == 'edit') {
 
       this.activatedRoute
               .paramMap
@@ -75,15 +89,52 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   private setPageTitle() {
 
-    if (this.currentAction == 'new') {
+    if (this.currentActionRoute == 'new') {
 
       this.pageTitle = 'Cadastro de Nova Categoria'
 
     } else {
 
-      const categoryName = this.category.name + ""
+      const categoryName = this.category.name || ""
       this.pageTitle = 'Editando Categoria: ' + categoryName
     }
+  }
 
+  private createCategory() {
+
+    const category: Category = Object.assign(new Category(), this.categoryForm.value)
+    this.categoryService
+            .create(category)
+            .subscribe(category => this.actionsForSuccess(category),
+                       error => this.actionsForError(error))
+  }
+
+  private updateCategory() {
+
+    const category: Category = Object.assign(new Category(), this.categoryForm.value)
+    this.categoryService
+            .update(category)
+            .subscribe(category => this.actionsForSuccess(category),
+                       error => this.actionsForError(error))
+  }
+
+  private actionsForSuccess(category: Category) {
+
+    toastr.success('Solicitação processada com sucesso!')
+    this.router
+            .navigateByUrl('categories', { skipLocationChange: true })
+            .then(() => this.router.navigate(['categories', category.id, 'edit']))
+  }
+
+  private actionsForError(error) {
+
+    toastr.error('Ocorreu um erro ao processar a sua solicitação')
+    this.disableButton = false
+
+    if (error.status === 422)
+      this.errorMessages = JSON.parse(error._body).errors
+
+    else 
+      this.errorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde']
   }
 }
