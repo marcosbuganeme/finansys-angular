@@ -11,7 +11,7 @@ import { Category } from './category.model';
 })
 export class CategoryService {
 
-  private path: string = 'api/v1/categories'
+  private path: string = 'api/categories'
 
   constructor(private http: HttpClient) { }
 
@@ -43,7 +43,7 @@ export class CategoryService {
     const url = `${this.path}/${category.id}`
 
     return this.http
-                .put(this.path, category)
+                .put(url, category)
                 .pipe(catchError(this.handleError), map(() => category))
   }
 
