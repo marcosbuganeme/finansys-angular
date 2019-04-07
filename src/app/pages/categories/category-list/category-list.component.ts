@@ -20,4 +20,16 @@ export class CategoryListComponent implements OnInit {
             .subscribe(categories => this.categories = categories, error => alert('erro ao retornar lista'))
   }
 
+  delete(category) {
+
+    let mustDelete = confirm('Deseja realmente excluir esse item ?')
+
+    if (mustDelete) {
+ 
+      this.categoryService
+              .delete(category.id)
+              .subscribe(() => this.categories = this.categories.filter(element => element != category), 
+                        () => alert('erro ao tentar excluir'))
+    }
+  }
 }
