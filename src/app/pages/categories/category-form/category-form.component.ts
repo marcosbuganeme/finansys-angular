@@ -36,6 +36,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked() {
+
     this.setPageTitle()
   }
 
@@ -43,22 +44,23 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
     this.disableButton = true
 
-    if (this.currentActionRoute == 'new') {
+    if (this.currentActionRoute == 'new')
 
       this.createCategory()
 
-    } else {
+    else
 
       this.updateCategory()
-    }
   }
 
   private setCurrentActionRoute() {
 
     if (this.activatedRoute.snapshot.url[0].path == 'new')
+      
       this.currentActionRoute = 'new'
 
     else
+
       this.currentActionRoute = 'edit'
   }
 
