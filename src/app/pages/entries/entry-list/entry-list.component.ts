@@ -7,7 +7,7 @@ import { Entry, EntryService } from '../shared'
   templateUrl: './entry-list.component.html',
   styleUrls: ['./entry-list.component.css']
 })
-export class CategoryListComponent implements OnInit {
+export class EntryListComponent implements OnInit {
 
   entries: Entry[] = []
 
