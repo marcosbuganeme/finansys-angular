@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError, flatMap } from 'rxjs/operators';
 
 import { Entry } from './entry.model';
+import { CategoryService } from '../../categories/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class EntryService {
 
   private path: string = 'api/entries'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private categoryService: CategoryService) { }
 
   findAll(): Observable<Entry[]> {
 
@@ -33,18 +35,33 @@ export class EntryService {
 
   create(entry: Entry): Observable<Entry> {
 
-    return this.http
-                .post(this.path, entry)
-                .pipe(catchError(this.handleError), map(this.jsonDataToEntry))
+    return this.categoryService
+                  .findById(entry.categoryId)
+                  .pipe(flatMap(category => { 
+                                  entry.category = category
+
+                                  return this.http
+                                              .post(this.path, entry)
+                                              .pipe(catchError(this.handleError), map(this.jsonDataToEntry))
+                                  }
+                                )
+                  )
   }
 
   update(entry: Entry): Observable<Entry> {
 
     const url = `${this.path}/${entry.id}`
 
-    return this.http
-                .put(url, entry)
-                .pipe(catchError(this.handleError), map(() => entry))
+    return this.categoryService
+                    .findById(entry.categoryId)
+                    .pipe(flatMap(category => { 
+                                  entry.category = category
+
+                                  return this.http
+                                                .put(url, entry)
+                                                .pipe(catchError(this.handleError), map(() => entry))
+                                })
+                    )
   }
 
   delete(id: number): Observable<any> {
