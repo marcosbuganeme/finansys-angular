@@ -11,16 +11,18 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
     protected http: HttpClient
 
     constructor(protected path: string, 
-                protected injector: Injector) {
+                protected injector: Injector,
+                protected jsonDataToResourceFn: (jsonData: any) => T) {
 
-                    this.http = injector.get(HttpClient)
+        this.http = injector.get(HttpClient)
     }
 
     findAll(): Observable<T[]> {
 
         return this.http
                     .get(this.path)
-                    .pipe(catchError(this.handleError), map(this.jsonDataToResources))
+                    .pipe(map(this.jsonDataToResources.bind(this)),
+                          catchError(this.handleError))
     }
 
     findById(id: number): Observable<T> {
@@ -29,14 +31,16 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
         return this.http
                     .get(url)
-                    .pipe(catchError(this.handleError), map(this.jsonDataToResource))
+                    .pipe(map(this.jsonDataToResource.bind(this)),
+                          catchError(this.handleError))
     }
 
     create(resource: T): Observable<T> {
 
         return this.http
                     .post(this.path, resource)
-                    .pipe(catchError(this.handleError), map(this.jsonDataToResource))
+                    .pipe(map(this.jsonDataToResource.bind(this)),
+                          catchError(this.handleError))
     }
 
     update(resource: T): Observable<T> {
@@ -45,7 +49,8 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
         return this.http
                     .put(url, resource)
-                    .pipe(catchError(this.handleError), map(() => resource))
+                    .pipe(map(() => resource),
+                          catchError(this.handleError))
     }
 
     delete(id: number): Observable<any> {
@@ -54,20 +59,21 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
         return this.http
                     .delete(url)
-                    .pipe(catchError(this.handleError), map(null))
+                    .pipe(map(null),
+                          catchError(this.handleError))
     }
 
     protected jsonDataToResources(json: any[]): T[] {
 
         const resources: T[] = []
-        json.forEach(resource => resources.push(resource as T))
+        json.forEach(resource => resources.push(this.jsonDataToResourceFn(resource)))
 
         return resources
     }
 
     protected jsonDataToResource(json: any): T {
 
-        return json as T
+        return this.jsonDataToResourceFn(json)
     }
 
     protected handleError(error: any): Observable<any> {
