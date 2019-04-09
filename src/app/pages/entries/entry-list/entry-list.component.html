@@ -11,7 +11,7 @@
   </div>
 
   <div class="col-md">
-    <a routerLink="new" class="btn btn-success float-right">+ Nova Categoria</a>
+    <a routerLink="new" class="btn btn-success float-right">+ Novo Lançamento</a>
   </div>
 </div>
 
@@ -20,19 +20,33 @@
       <thead>
         <tr class="bg-primary text-light">
           <th>Lançamentos</th>
-          <th>Ações</th>
+          <th>Categoria</th>
+          <th class="text-right">Valor R$</th>
+          <th class="text-center">Ações</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let entry of entries">
           <td>
-            <strong>{{ entry.name }}</strong>
-            <br>
-            <small>{{ entry.description }}</small>
+            <strong>{{ entry.name }}</strong><br>
+            <small class="text-success">{{ entry.date }}</small><br>
+            <small *ngIf="entry.description">{{ entry.description }}</small>
           </td>
 
           <td>
+            {{ entry.category.name }}
+          </td>
+
+          <td class="text-right">
+            <strong [class.text-success]="entry.type == 'revenue'" [class.text-danger]="entry.type == 'expense'">
+              {{ entry.amount }}
+            </strong>
+            <br>
+            <span class="badge badge-light">{{ entry.paidText }}</span>
+          </td>
+
+          <td class="text-center">
             <a [routerLink]="[entry.id, 'edit']" class="btn btn-sm btn-outline-info mr-2">Editar</a>
             <a (click)="delete(entry)" class="btn btn-sm btn-outline-danger">Excluir</a>
           </td>
