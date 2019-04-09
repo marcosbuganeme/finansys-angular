@@ -17,7 +17,8 @@ export class EntryListComponent implements OnInit {
 
     this.entryService
             .findAll()
-            .subscribe(entries => this.entries = entries, error => alert('erro ao retornar lista'))
+            .subscribe(entries => this.entries = entries.sort((a, b) => b.id - a.id), 
+                       error => alert('erro ao retornar lista'))
   }
 
   delete(entry) {
