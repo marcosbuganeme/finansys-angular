@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
     <li class="breadcrumb-item"><a routerLink="/categories">Categorias</a></li>
-    <li class="breadcrumb-item">Formulário de Categorias</li>
+    <li class="breadcrumb-item">{{ pageTitle }}</li>
   </ol>
 </nav>
 
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<form [formGroup]="categoryForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (submit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre a categoria
@@ -30,9 +30,9 @@
           <label for="name">Nome</label>
           <input type="text" class="form-control" id="name" formControlName="name">
 
-          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
-            <div *ngIf="categoryForm.get('name').errors.required">Dado obrigatório!</div>
-            <div *ngIf="categoryForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres!</div>
+          <div class="text-danger" *ngIf="resourceForm.get('name').invalid && resourceForm.get('name').touched">
+            <div *ngIf="resourceForm.get('name').errors.required">Dado obrigatório!</div>
+            <div *ngIf="resourceForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres!</div>
           </div>
         </div>
 
@@ -51,5 +51,5 @@
     </ul>
   </div>
 
-  <button [disabled]="disableButton || categoryForm.invalid" type="submit" class="btn btn-lg btn-primary float-right mt-3">Salvar</button>
+  <button [disabled]="disableButton || resourceForm.invalid" type="submit" class="btn btn-lg btn-primary float-right mt-3">Salvar</button>
 </form>
