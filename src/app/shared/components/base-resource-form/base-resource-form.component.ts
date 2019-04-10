@@ -61,7 +61,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     protected setCurrentActionRoute() {
 
         if (this.activatedRoute.snapshot.url[0].path == 'new')
-            
+
             this.currentActionRoute = 'new'
 
         else
