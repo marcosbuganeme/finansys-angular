@@ -1,11 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { flatMap, catchError } from 'rxjs/operators';
+import { flatMap, catchError, map } from 'rxjs/operators';
+
+import *  as moment from 'moment'
 
 import { Entry } from './entry.model';
 import { CategoryService } from '../../categories/shared';
-
 import { BaseResourceService } from 'src/app/shared/services/base-resource.service';
 
 @Injectable({
@@ -29,6 +30,12 @@ export class EntryService extends BaseResourceService<Entry> {
     return this.setAndSendToServer(entry, super.update.bind(this))
   }
 
+  findByMonthAndYear(month, year): Observable<Entry[]> {
+
+    return this.findAll()
+                  .pipe(map(entries => this.filterByMonthAndYear(entries, month, year)))
+  }
+
   private setAndSendToServer(entry: Entry, sendFn: any): Observable<Entry> {
 
     return this.categoryService
@@ -39,5 +46,18 @@ export class EntryService extends BaseResourceService<Entry> {
                                 }
                         ), catchError(this.handleError)
                   )
+  }
+
+  private filterByMonthAndYear(entries: Entry[], month: number, year: number) {
+
+    return entries
+              .filter(entry => {
+                const entryDate = moment(entry.date, 'DD/MM/YYYY')
+                const monthMatches = entryDate.month() + 1 == month
+                const yearMatches = entryDate.year() == year
+
+                if (monthMatches && yearMatches)
+                  return entry
+              })
   }
 }
