@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 
+import { ChartModule } from "primeng/chart";
+
+import { SharedModule } from '../../shared/shared.module';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports/reports.component';
+
 
 @NgModule({
   declarations: [
@@ -10,7 +13,8 @@ import { ReportsComponent } from './reports/reports.component';
   ],
   imports: [
     SharedModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    ChartModule
   ]
 })
-export class ReportsModule { }
+export class ReportsModule {}

@@ -31,24 +31,25 @@
           <option value="11">Novembro</option>
           <option value="12">Dezembro</option>
         </select>
+      </div>
+
+      <div class="form-group col-md-5">
+        <label for="year">Ano</label>
+        <select #year name="year" id="year" class=form-control>
+          <option value="">Selecione um ano</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+        </select>
+      </div>
     </div>
 
-    <div class="form-group col-md-5">
-      <label for="year">Ano</label>
-      <select #year name="year" id="year" class=form-control>
-        <option value="">Selecione um ano</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="col-md text-right">
-      <button (click)="generateReports()" type="button" class="btn btn-primary">Gerar Relatórios</button>
+    <div class="form-row">
+      <div class="col-md text-right">
+        <button (click)="generateReports()" type="button" class="btn btn-primary">Gerar Relatórios</button>
+      </div>
     </div>
   </div>
 </div>
@@ -59,7 +60,7 @@
       <span>TOTAL DE RECEITAS</span>
     </div>
     <div class="card-body">
-      <h3 class="card-title">1500</h3>
+      <h3 class="card-title">{{ revenueTotal }}</h3>
     </div>
   </div>
 
@@ -68,7 +69,7 @@
       <span>TOTAL DE DESPESAS</span>
     </div>
     <div class="card-body">
-      <h3 class="card-title">500</h3>
+      <h3 class="card-title">{{ expenseTotal }}</h3>
     </div>
   </div>
 
@@ -77,7 +78,7 @@
       <span>TOTAL DE SALDO</span>
     </div>
     <div class="card-body">
-      <h3 class="card-title">1000</h3>
+      <h3 class="card-title">{{ balance }}</h3>
     </div>
   </div>
 </div>
@@ -86,10 +87,18 @@
 
 <div class="row mt-5 mb-4">
   <div class="col-md-6">
-    GRAFICO DE DESPESAS
+    <p-chart 
+      type="bar" 
+      [data]="revenueChartData" 
+      [options]="chartOptions">
+    </p-chart>
   </div>
 
   <div class="col-md-6">
-    GRAFICO DE RECEITAS
+    <p-chart 
+      type="bar" 
+      [data]="expenseChartData" 
+      [options]="chartOptions">
+    </p-chart>
   </div>
 </div>
