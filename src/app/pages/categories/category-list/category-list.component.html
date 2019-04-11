@@ -1,8 +1,8 @@
-<app-bread-crumb></app-bread-crumb>
+<app-bread-crumb [itens]="[{text: 'categorias', link: '/categories'}]"></app-bread-crumb>
 
 <div class="row mb-4">
   <div class="col-md">
-    <h1 class="h2 border-left pl-2">Categorias</h1>
+    <h1 class="h2 border-left pl-2">{{ pageTitle }}</h1>
   </div>
 
   <div class="col-md">

@@ -1,10 +1,4 @@
-<nav>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/entries">Lançamentos</a></li>
-    <li class="breadcrumb-item">Formulário de Lançamento</li>
-  </ol>
-</nav>
+<app-bread-crumb [itens]="[{text: 'lançamentos', link: '/entries'}, {text: pageTitle}]"></app-bread-crumb>
 
 <div class="row mb-4">
   <div class="col-md">

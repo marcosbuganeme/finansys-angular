@@ -1,10 +1,4 @@
-<nav>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-    <li class="breadcrumb-item"><a routerLink="/categories">Categorias</a></li>
-    <li class="breadcrumb-item">{{ pageTitle }}</li>
-  </ol>
-</nav>
+<app-bread-crumb [itens]="[{text: 'categorias', link: '/categories'}, {text: pageTitle}]"></app-bread-crumb>
 
 <div class="row mb-4">
   <div class="col-md">
