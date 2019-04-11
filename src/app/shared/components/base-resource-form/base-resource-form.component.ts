@@ -15,7 +15,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     resourceForm: FormGroup
     currentActionRoute: string
     disableButton: boolean = false
-    errorMessages: string[] = null
+    serverErrorMessages: string[] = null
 
     protected router: Router
     protected formBuilder: FormBuilder
@@ -135,9 +135,9 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         this.disableButton = false
 
         if (error.status === 422)
-            this.errorMessages = JSON.parse(error._body).errors
+            this.serverErrorMessages = JSON.parse(error._body).errors
 
         else 
-            this.errorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde']
+            this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde']
     }
 }
