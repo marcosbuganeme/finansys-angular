@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Entry, EntryService } from '../../../pages/entries/shared/'
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 

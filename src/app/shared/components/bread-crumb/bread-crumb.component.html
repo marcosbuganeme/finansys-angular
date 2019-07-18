@@ -6,10 +6,10 @@
 
     <li *ngFor="let item of itens"
         class="breadcrumb-item active"
-        [class.active]="isLastItemList(item)">
+        [class.active]="ultimoElementoDaLista(item)">
 
-        <span *ngIf="isLastItemList(item)">{{ item.text }}</span>
-        <a *ngIf="!isLastItemList(item)" [routerLink]="item.link">{{ item.text }}</a>
+        <span *ngIf="ultimoElementoDaLista(item)">{{ item.text }}</span>
+        <a *ngIf="!ultimoElementoDaLista(item)" [routerLink]="item.link">{{ item.text }}</a>
     </li>
   </ol>
 </nav>

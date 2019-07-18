@@ -17,7 +17,7 @@ export class BreadCrumbComponent {
 
   constructor() { }
 
-  isLastItemList(item: BreadCrumb) {
+  ultimoElementoDaLista(item: BreadCrumb) {
 
     const index = this.itens.indexOf(item)
     return index + 1 == this.itens.length
