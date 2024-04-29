@@ -19,12 +19,14 @@
     "@angular/platform-browser": "^17.3.6",
     "@angular/platform-browser-dynamic": "^17.3.6",
     "@angular/router": "^17.3.6",
+    "@webcomponents/custom-elements": "^1.6.0",
     "angular-imask": "7.6.0",
     "angular-in-memory-web-api": "^0.17.0",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
     "core-js": "^3.37.0",
     "currency-formatter": "^1.5.3",
+    "intl": "^1.2.5",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "primeicons": "7.0.0",
@@ -32,6 +34,7 @@
     "rxjs": "^7.8.1",
     "toastr": "^2.1.4",
     "tslib": "^2.6.2",
+    "web-animations-js": "^2.3.2",
     "zone.js": "^0.14.4"
   },
   "devDependencies": {
