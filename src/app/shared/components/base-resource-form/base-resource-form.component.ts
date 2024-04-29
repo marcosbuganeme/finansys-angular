@@ -1,5 +1,5 @@
 import { OnInit, AfterContentChecked, Injector, Directive } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { switchMap } from 'rxjs/operators'
@@ -13,13 +13,13 @@ import { BaseResourceService } from '../../services/base-resource.service'
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
  
     pageTitle: string
-    resourceForm: FormGroup
+    resourceForm: UntypedFormGroup
     currentActionRoute: string
     disableButton: boolean = false
     serverErrorMessages: string[] = null
 
     protected router: Router
-    protected formBuilder: FormBuilder
+    protected formBuilder: UntypedFormBuilder
     protected activatedRoute: ActivatedRoute
 
     constructor(public resource: T,
@@ -28,7 +28,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
                 protected baseResourceService: BaseResourceService<T>) { 
 
         this.router = this.injector.get(Router)
-        this.formBuilder = this.injector.get(FormBuilder)
+        this.formBuilder = this.injector.get(UntypedFormBuilder)
         this.activatedRoute = this.injector.get(ActivatedRoute)
     }
 
