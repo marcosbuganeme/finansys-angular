@@ -70,7 +70,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -93,18 +92,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "finansys-angular:build"
+            "buildTarget": "finansys-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "finansys-angular:build:production"
+              "buildTarget": "finansys-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "finansys-angular:build"
+            "buildTarget": "finansys-angular:build"
           }
         },
         "test": {
@@ -166,6 +165,5 @@
         }
       }
     }
-  },
-  "defaultProject": "finansys-angular"
+  }
 }

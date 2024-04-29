@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-form-field-error',
@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms'
 })
 export class FormFieldErrorComponent {
 
-  @Input('form-control') formControl: FormControl
+  @Input('form-control') formControl: UntypedFormControl
 
   constructor() { }
 
